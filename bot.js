@@ -1,35 +1,25 @@
+// Modules
 require("dotenv").config();
-const editDotEnv = require("edit-dotenv");
-const pkgJSON = require("./package.json");
-const discord = require("discord.js");
+require("edit-dotenv");
 require("discord-reply");
+const pkgJSON = require("./package.json");
+const config = require("./config.json")
+const lang = require("./localization.json")
+const discord = require("discord.js");
+
+// Classes
+const UserJoinGuildEmbed = require("./embed/UserJoinGuildEmbed");
+const UserLeaveGuildEmbed = require("./embed/UserLeaveGuildEmbed");
+
+// Initialize bot
 const bot = new discord.Client();
-
-// Settings
-var botLang = process.env.BOT_LANGUAGE;
-var botPrefix = process.env.BOT_PREFIX;
-var logsChannel;
-var generalChannel;
-
 bot.once("ready", () => {
-	// Initialize bot
 	bot.user.setActivity("in Grove Street");
 	console.log(`${pkgJSON.name} bot is ready! (Author: ${pkgJSON.author}, Version: ${pkgJSON.version})`);
 
-	// Initialize channels
-	// #logs
-	bot.channels.fetch(process.env.BOT_CHANNEL_LOGS)
-	.then(channel => {
-		logsChannel = channel;
-		console.log(`${logsChannel.name} channel initialized.`);
-	});
-
-	// #general
-	bot.channels.fetch(process.env.BOT_CHANNEL_GENERAL)
-	.then(channel => {
-		generalChannel = channel;
-		console.log(`${generalChannel.name} channel initialized.`);
-		generalChannel.send("Hello guys, I just went online 😎");
+	// Test events
+	bot.channels.fetch(config.channels.general).then(channel => {
+		channel.send("Hey guys, I just went online 😎");
 	});
 
 	setTimeout(() => {
@@ -40,77 +30,48 @@ bot.once("ready", () => {
 
 // Commands
 bot.on("message", message => {
-	if (message.content.startsWith(botPrefix)) {
+	if (message.content.startsWith(config.prefix)) {
 		message.lineReply("Hey bro, what do you need?");
-		userJoinServer(message.author);
+		userJoinGuild(message.author);
 	}
 });
 
-// Embed message template
-class UserGuildInteractionEmbed {
-	constructor(target, type) {
-		if (!target) return;
-		var color;
-		var title;
-		var description;
-		var fields;
-
-		if (type == "joined") {
-			color = "#30D158";
-			title = "Member joined";
-			description = `Welcome to <@${target.id}>, he just joined the server!`;
-			fields = [
-				{ name: "Information", value: `
-					• General channel: <#${generalChannel.id}>
-					• Logs channel: <#${logsChannel.id}>
-				` }
-			]
-		} else if (type == "left") {
-			color = "#FF453A";
-			title = "Member left";
-			description = `Good bye to <@${target.id}>, he just left the server..\nWe hope to see you coming back soon!`;
-		}
-		return {
-			color: color,
-			title: title,
-			description: description,
-			thumbnail: {
-				url: target.avatarURL()
-			},
-			fields: fields,
-			footer: {
-				text: target.username,
-				icon_url: target.avatarURL()
-			},
-			timestamp: new Date(),
-		}
-	}
+// Functions
+async function getChannelById(id){
+	return await Promise.resolve(
+		bot.channels.fetch(id)
+	);
 }
 
-async function userJoinServer(user){
-	if (logsChannel)
-		var messageEmbed = new UserGuildInteractionEmbed(user, "joined");
-		logsChannel.send({ embed: messageEmbed }).then(embed => {
+// Events
+async function userJoinGuild(user){
+	getChannelById(config.channels.logs)
+	.then(channel => {
+		var messageEmbed = new UserJoinGuildEmbed(user);
+		channel.send({ embed: messageEmbed }).then(embed => {
 			embed.react("👋");
 		});
 		console.log(`(Info) ${user.tag} joined the server!`);
+	});
 }
-bot.addListener("guildMemberAdd", userJoinServer)
+bot.addListener("guildMemberAdd", userJoinGuild)
 
-async function userLeftServer(user){
-	if (logsChannel)
-		var messageEmbed = new UserGuildInteractionEmbed(user, "left");
-		logsChannel.send({ embed: messageEmbed }).then(embed => {
+async function userLeftGuild(user){
+	getChannelById(config.channels.logs)
+	.then(channel => {
+		var messageEmbed = new UserLeaveGuildEmbed(user);
+		channel.send({ embed: messageEmbed }).then(embed => {
 			embed.react("😢");
 		});
 		console.log(`(Info) ${user.tag} left the server..`);
+	});
 }
-bot.addListener("guildMemberRemove", userLeftServer)
+bot.addListener("guildMemberRemove", userLeftGuild)
 
-// Functions
 bot.on("message", message => {
 	if (message.content == "uptime")
 		message.channel.send(`Bot has been running for ${bot.uptime} seconds.`);
 });
 
+// Bot login process
 bot.login(process.env.BOT_TOKEN);
