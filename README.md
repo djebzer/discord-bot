@@ -1,2 +1,2 @@
-# discord-bot
-My first discord bot
+# Simple discord bot
+A discord bot featuring really simple features
