@@ -9,7 +9,8 @@ module.exports = {
 		if (!config.logs.message_edited) return;
 		
 		var editor = newMessage.author;
-		if (editor == client.user) return;
+		if (editor.bot) return;
+		
 		addLog(editor, {
 			title: "Message edited",
 			description: `<@${editor.id}> edited a message in ${oldMessage.channel}.`,

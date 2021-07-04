@@ -6,20 +6,23 @@ const { addLog } = require("../functions/logging");
 module.exports = {
 	name: "guildMemberRemove",
 	execute(user) {
-		if (!config.logs.all) return;
-		if (!config.logs.user_left) return;
-		
-		client.channels.fetch(config.channels.lobby).then(channel => {
-			channel.send({ embed: new UserLeaveGuildEmbed(user) }).then(embed => {
-				embed.react("😢");
+		// send an embed message in the lobby
+		if (config.modules.user_left) {		
+			client.channels.fetch(config.channels.lobby).then(channel => {
+				channel.send({ embed: new UserLeaveGuildEmbed(user) }).then(embed => {
+					embed.react("😢");
+				});
 			});
-		});
+		}
 
-		addLog(user, {
-			title: "User left",
-			description: `<@${user.id}> left the server.`,
-			footer: `UserID: ${user.id}`,
-			timestamp: new Date()
-		});
+		// log
+		if (config.logs.all && config.logs.user_joined) {
+			addLog(user, {
+				title: "User left",
+				description: `<@${user.id}> left the server.`,
+				footer: `UserID: ${user.id}`,
+				timestamp: new Date()
+			});
+			}
 	}
 }

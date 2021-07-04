@@ -6,7 +6,7 @@ module.exports = {
 	name: "ready",
 	once: true,
 	execute() {
-		console.log(`(Info) ${pkgJSON.name} bot is ready! (Author: ${pkgJSON.author}, Version: ${pkgJSON.version})`);
+		console.log(`(Info) ${pkgJSON.name} is ready! (Author: ${pkgJSON.author}, Version: ${pkgJSON.version})`);
 
 		// set the bot activity
 		if (config.bot.activity) {
@@ -14,12 +14,12 @@ module.exports = {
 		}
 
 		// Testing events
-		/*client.channels.fetch(config.channels.general).then(channel => {
+		client.channels.fetch(config.channels.general).then(channel => {
 			channel.send("Hey guys, I just went online 😎");
 		});
 		setTimeout(() => {
 			client.emit("guildMemberAdd", client.user);
 			client.emit("guildMemberRemove", client.user);
-		}, 1000);*/
+		}, 1000);
 	}
 }
