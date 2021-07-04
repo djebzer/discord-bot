@@ -1,7 +1,18 @@
 {
-	"prefix": "!bs",
+	"bot": {
+		"prefix": "!bs",
+		"activity": "with Carl Johnson"
+	},
 	"channels": {
-		"logs": "860721236103397406",
+		"logs": "861074747441545256",
+		"lobby": "860721236103397406",
 		"general": "860583124483702787"
+	},
+	"logs": {
+		"all": true,
+		"message_sent": false,
+		"message_edited": true,
+		"user_joined": true,
+		"user_left": false
 	}
 }
