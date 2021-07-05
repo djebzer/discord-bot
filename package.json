@@ -1,5 +1,5 @@
 {
-	"name": "discord-bot",
+	"name": "my-discord-bot",
 	"description": "A discord bot featuring really simple features",
 	"version": "1.0.0",
 	"author": "djebzer",
@@ -16,10 +16,9 @@
 		"discord.js": "^13.0.0-dev.610b0b4.1625357028",
 		"discord.js-commando": "^0.12.3",
 		"dotenv": "^10.0.0",
-		"edit-dotenv": "^1.0.4",
-		"eslint": "^7.29.0",
-		"path": "^0.12.7",
-		"sqlite": "^4.0.23",
-		"sqlite3": "^5.0.2"
+		"path": "^0.12.7"
+	},
+	"engines": {
+		"node": "15.10"
 	}
 }
