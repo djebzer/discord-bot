@@ -8,7 +8,7 @@ module.exports = {
 		if (!config.logs.all) return;
 		if (!config.logs.message_edited) return;
 		
-		var editor = newMessage.author;
+		let editor = newMessage.author;
 		if (editor.bot) return;
 		
 		addLog(editor, {

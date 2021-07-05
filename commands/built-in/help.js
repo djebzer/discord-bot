@@ -2,51 +2,46 @@ const config = require("../../config.json");
 const client = require("../../main");
 const Discord = require("discord.js");
 
-client.on("interaction", (interaction) => {
-	// >help commands
-	if (interaction.customID == "commands_helpCommands") {
-		interaction.reply({
-			embeds: [
-				{
-					color: config.bot.color,
-					title: "Available commands",
-					description: "Here is a list of all available commands",
-					fields: [
-						{ name: "Commands", value: `• command1`}
-					]
-				}
-			],
-			ephemeral: true
-		})
+const subCommands = {
+	commands: {
+		description: "List of all bot commands",
+		callback(message) {
+			return message.reply(`Commands description: ${this.description}`);
+		}
 	}
-});
+}
 
 module.exports = {
-	name: 'help',
-	description: 'Information about the bot',
+	name: "help",
+	description: "Information about the bot commands",
+	aliases: ["mayday", "how", "plz"],
+	cooldown: 5,
+
 	execute(message, args) {
-		if (!args[0]) {
+		if (!args[0] || !subCommands[args[0]]) {
 			const helpPanel = new Discord.MessageEmbed({
 				color: config.bot.color,
 				title: "Help",
-				description: "Click on the buttons to get more information"
-			});
-
-			const commandsButton = new Discord.MessageButton({
-				customID: "commands_helpCommands",
-				label: "Commands",
-				emoji: "⌨️",
-				style: "SECONDARY",
-				type: "BUTTON"
-			});
-
-			message.channel.send({ 
-				content: `Need some help <@${message.author.id}>? Here is everything you should know:`,
-				embeds: [ helpPanel ],
-				components: [
-					[ commandsButton ]
+				description: "Here is the list of the bot commands:",
+				thumbnail: {
+					url: client.user.avatarURL()
+				},
+				fields: [
+					{ name: "Commands", value: "`>help commands`", inline: true },
+					{ name: "Moderation", value: "`>help moderation`", inline: true },
 				]
 			});
+
+			message.reply({
+				content: `Need some help <@${message.author.id}>? Here is everything you should know:`,
+				embeds: [ helpPanel ]
+			});
+		}
+
+		// sub commands
+		if (subCommands[args[0]]) {
+			let subCommand = subCommands[args[0]];
+			subCommand.callback(message);
 		}
 	},
 };

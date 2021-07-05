@@ -3,10 +3,10 @@ module.exports = class UserJoinGuildEmbed {
 	constructor(target) {
 		if (!target) return;
 
-		var color = "#30D158";
-		var title = "Member joined";
-		var description = `Welcome to <@${target.id}>, who just joined the server!`;
-		var fields = [
+		let color = "#30D158";
+		let title = "Member joined";
+		let description = `Welcome to <@${target.id}>, who just joined the server!`;
+		let fields = [
 			{ name: "Information", value: `
 				• General channel: <#${config.channels.general}>
 				• Logs channel: <#${config.channels.logs}>

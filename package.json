@@ -3,6 +3,7 @@
 	"description": "A discord bot featuring really simple features",
 	"version": "1.0.0",
 	"author": "djebzer",
+	"author_discord_id": "231746671267151872",
 	"main": "main.js",
 	"scripts": {
 		"start": "node .",

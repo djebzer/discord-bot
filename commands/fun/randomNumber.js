@@ -1,11 +1,14 @@
 const client = require("../../main");
 
 module.exports = {
-	name: 'number',
-	description: 'Generate a random number between 0 and your maximum',
+	name: "number",
+	description: "Generate a random number between 0 and your maximum",
+	usage: "<number>",
 	args: true,
+	guildOnly: true,
+	
 	execute(message, args) {
-		var number = parseInt(args[0]);
+		let number = parseInt(args[0]);
 		message.reply(`Random number: **${Math.floor(Math.random() * number)}**`);
 	},
 };

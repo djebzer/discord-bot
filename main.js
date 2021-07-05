@@ -2,13 +2,22 @@
 require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
+const pkgJSON = require("./package.json");
 
 // initialize client
+const config = require("./config.json");
 const Discord = require("discord.js");
 const client = new Discord.Client({
-	intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_EMOJIS']
+	intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_EMOJIS'],
+	owner: "231746671267151872"
 });
+client.commands = new Discord.Collection();
+client.cooldowns = new Discord.Collection();
 module.exports = client;
+
+/*client.users.fetch(pkgJSON.author_discord_id).then(user => {
+	console.log(`BOT MADE BY ${user.tag}`)
+});*/
 
 // initialize events
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
@@ -22,9 +31,7 @@ for (const file of eventFiles) {
 }
 
 // initialize commands
-client.commands = new Discord.Collection();
 const commandFolders = fs.readdirSync('./commands');
-
 for (const folder of commandFolders) {
 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {

@@ -2,9 +2,9 @@ module.exports = class UserLeaveGuildEmbed {
 	constructor(target) {
 		if (!target) return;
 
-		var color = "#FF453A";
-		var title = "Member left";
-		var description = `
+		let color = "#FF453A";
+		let title = "Member left";
+		let description = `
 			Good bye to <@${target.id}>, who just left the server..
 			We hope to see you coming back soon!
 		`;

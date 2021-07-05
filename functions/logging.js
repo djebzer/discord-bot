@@ -2,7 +2,7 @@ const client = require("../main");
 const config = require("../config.json");
 const LogsEmbed = require("../embeds/LogsEmbed");
 
-var DEV_MODE = config.dev_mode;
+let DEV_MODE = config.dev_mode;
 
 module.exports.addLog = function addLog(target, info){
 	if (DEV_MODE) {
