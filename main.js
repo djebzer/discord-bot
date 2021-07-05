@@ -46,4 +46,4 @@ client.on("warn", console.warn);
 client.on("debug", console.log);
 
 // bot login
-client.login(process.env.BOT_TOKEN);
+client.login(BOT_TOKEN);
