@@ -1,12 +1,27 @@
+const projectPath = process.cwd();
+const { i18n } = require(`${projectPath}/main`);
+
 module.exports = {
 	name: "number",
-	description: "Generate a random number between 0 and your maximum",
-	usage: "<number>",
+	description: i18n.__("modules.commands.cmds.number.command_desc"),
+	usage: "<min> <max>",
 	args: true,
-	cooldown: 10,
+	cooldown: 5,
 	guildOnly: true,
 	execute(message, args) {
-		let number = parseInt(args[0]);
-		message.reply(`Random number: **${Math.floor(Math.random() * number)}**`);
+		if (!args[1]) {
+			return message.reply(i18n.__("modules.commands.cmds.number.error"));
+		}
+
+		// generate a random number
+		let min = parseInt(args[0]);
+		let max = parseInt(args[1]);
+
+		if (min === max) {
+			return message.reply(i18n.__mf("modules.commands.cmds.number.answer", { number: n1 }));
+		}
+
+		let result = Math.floor(Math.random() * (max - min + 1)) + min;
+		message.reply(i18n.__mf("modules.commands.cmds.number.answer", { number: result }));
 	},
 };

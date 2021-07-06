@@ -8,18 +8,13 @@ module.exports = {
 	name: "ready",
 	once: true,
 	execute() {
-		client.channels.fetch(config.channels.lobby).then(channel => {
-			channel.send(i18n.__("global.hello"));
-			channel.send(i18n.__mf("global.hello_formated", { test: 150 }));
-		});
-
 		console.log(`(Info) ${pkgJSON.name} is ready! (Author: ${pkgJSON.author}, Version: ${pkgJSON.version})`);
 
 		// set the bot activity
 		function updateGuildsCount(){
 			let guildsCount = `${client.guilds.cache.size} server`;
 			guildsCount += (guildsCount > 1) ? "s" : "";
-			client.user.setActivity(`on ${guildsCount}. (${config.bot.prefix}help)`);
+			client.user.setActivity(`in ${guildsCount}. (${config.bot.prefix}help)`);
 		}
 
 		if (config.bot.activity) {

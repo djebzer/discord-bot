@@ -1,13 +1,13 @@
+const projectPath = process.cwd();
+const { i18n } = require(`${projectPath}/main`);
+
 module.exports = class UserLeaveGuildEmbed {
 	constructor(target) {
 		if (!target) return;
 		return {
 			color: "#FF453A",
-			title: "Member left",
-			description: `
-				Good bye to <@${target.id}>, who just left the server..
-				We hope to see you coming back soon!
-			`,
+			title: i18n.__("modules.user_left.title"),
+			description: i18n.__mf("modules.user_left.description", { target_id: target.id }),
 			thumbnail: {
 				url: target.avatarURL()
 			},

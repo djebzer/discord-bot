@@ -1,18 +1,90 @@
 {
-	"global": {
-		"hello": "Hey everyone!",
-		"hello_formated": "Hey **{test}** everyone!"
+	"modules": {
+		"commands": {
+			"global": {
+				"no_dm": "I can't execute that command inside DMs!",
+				"no_permissions": "You don't have enough permissions to perform this command!",
+				"no_args": "You didn't provide any argument for this command!",
+				"usage": "The proper usage for this command would be: `{command_name} {command_usage}`",
+				"time_left": "You need to wait **{time_left}** before using the `{command_name}` command again.",
+				"error": "Something went wrong while trying to execute that command.. 😥\nPlease try again later."
+			},
+			"cmds": {
+				"help": {
+					"command_desc": "Information about the bot commands",
+					"title": "Help",
+					"description": "Here is the list of the bot useful commands:",
+					"embed_title": "Need some help <@{author_id}>? Here is everything you should know:",
+					"sub_commands": {
+						"about": {
+							"command_title": "About",
+							"command_desc": "Information about the bot owner.",
+							"message": "Here are information about the person who created me! 😎",
+							"embed_title": "Bot owner information",
+							"embed_field_author_name": "Owner",
+							"embed_field_info_name": "Information",
+							"embed_field_info_value": "Click on the buttons below for useful links.",
+							"link_website": "Website"
+						},
+						"commands": {
+							"command_title": "Commands",
+							"command_desc": "List of all bot commands",
+							"embed_field_cmds_name": "Available commands"
+						},
+						"moderation": {
+							"command_title": "Moderation commands",
+							"command_desc": "List of moderation commands",
+							"embed_field_cmds_name": "Available commands"
+						}
+					}
+				},
+				"drink": {
+					"command_desc": "Gives you a random drink",
+					"answer": "Here is a **{drink}** for you!"
+				},
+				"number": {
+					"command_desc": "Generates a random number between 2 specified numbers",
+					"error": "You must mention a second number!",
+					"answer": "Random number: **{number}**"
+				},
+				"clearchat": {
+					"command_desc": "Clears 100 messages from the actual or specified channel",
+					"answer": "Chat has been cleared by <@{author_id}>."
+				},
+				"ping": {
+					"command_desc": "Returns the bot's latency in miliseconds",
+					"answer": "My response time is **{latency}ms**."
+				},
+				"uptime": {
+					"command_desc": "Returns how long the bot has been running for",
+					"answer": "I have been running for **{uptime}**."
+				},
+				"avatar": {
+					"command_desc": "Returns the specified user's avatar",
+					"error": "Couldn't find the specified user! (Example: {command_name} <@{target_id}>)",
+					"answer_self": "Here is your avatar:",
+					"answer_target": "Here is **{target_tag}**'s avatar:",
+					"requested_by": "Requested by {author_id}"
+				}
+			}
+		},
+		"user_joined": {
+			"title": "User joined",
+			"description": "Welcome to <@{target_id}>, who just came in.\nEnjoy your stay there!"
+		},
+		"user_left": {
+			"title": "User left",
+			"description": "Good bye to <@{target_id}>, who just left the server..\nWe hope to see you coming back soon!"
+		}
 	},
 	"logs": {
 		"command_used": {
 			"title": "Command used",
-			"description": "<@{author_id}> used the command: `{prefix}{command_name}`."
+			"description": "<@{author_id}> used the command `{command_name}`."
 		},
 		"message_sent": {
 			"title": "Message sent",
-			"description": "<@{author_id}> says: {message_content}.",
-			"before": "Before",
-			"after": "After"
+			"description": "<@{author_id}> says {message_content}."
 		},
 		"message_edited": {
 			"title": "Message edited",
@@ -27,6 +99,10 @@
 		"user_left": {
 			"title": "User left",
 			"description": "<@{user_id}> left the server."
+		},
+		"chat_cleared": {
+			"title": "Chat cleared",
+			"description": "<#{channel_id}> has been cleared by <@{author_id}>."
 		}
 	}
 }

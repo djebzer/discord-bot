@@ -2,11 +2,12 @@ const projectPath = process.cwd();
 const config = require(`${projectPath}/config.json`);
 const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
+const { i18n } = require(`${projectPath}/main`);
 
 module.exports = {
 	name: "moderation",
-	title: "Moderation commands",
-	description: "List of all moderation commands",
+	title: i18n.__("modules.commands.cmds.help.sub_commands.moderation.command_title"),
+	description: i18n.__("modules.commands.cmds.help.sub_commands.moderation.command_desc"),
 	permissions: "KICK_MEMBERS",
 	callback(message) {
 		const authorPerms = message.channel.permissionsFor(message.author);
@@ -22,10 +23,10 @@ module.exports = {
 
 		const commandsEmbed = {
 			color: config.bot.color,
-			title: "Commands list",
+			title: this.title,
 			description: this.description,
 			fields: [
-				{ name: this.title, value: commandLine }
+				{ name: i18n.__("modules.commands.cmds.help.sub_commands.moderation.embed_field_cmds_name"), value: commandLine }
 			]
 		};
 

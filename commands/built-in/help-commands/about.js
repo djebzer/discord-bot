@@ -2,20 +2,24 @@ const projectPath = process.cwd();
 const pkgJSON = require(`${projectPath}/package.json`);
 const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
+const { i18n } = require(`${projectPath}/main`);
 
 module.exports = {
 	name: "about",
-	title: "About",
-	description: "Information about the bot author",
+	title: i18n.__("modules.commands.cmds.help.sub_commands.about.command_title"),
+	description: i18n.__("modules.commands.cmds.help.sub_commands.about.command_desc"),
 	callback(message) {
 		client.users.fetch(pkgJSON.author_discord_id).then(botAuthor => {
 			const aboutEmbed = new Discord.MessageEmbed ({
 				color: "#FF453A",
-				title: "Bot author information",
+				title: i18n.__("modules.commands.cmds.help.sub_commands.about.embed_title"),
 				description: this.description,
 				fields: [
-					{ name: "Author", value: `${botAuthor.tag}` },
-					{ name: "About him", value: "Click on the buttons below for useful links." }
+					{ name: i18n.__("modules.commands.cmds.help.sub_commands.about.embed_field_author_name"), value: `${botAuthor.tag}` },
+					{
+						name: i18n.__("modules.commands.cmds.help.sub_commands.about.embed_field_info_name"),
+						value: i18n.__("modules.commands.cmds.help.sub_commands.about.embed_field_info_value")
+					}
 				],
 				thumbnail: {
 					url: botAuthor.avatarURL()
@@ -27,7 +31,7 @@ module.exports = {
 			});
 			const websiteButton = new Discord.MessageButton({
 				url: "http://djebzer.fr",
-				label: "Website",
+				label: i18n.__("modules.commands.cmds.help.sub_commands.about.link_website"),
 				emoji: "🌐",
 				style: "LINK",
 			});
@@ -39,7 +43,7 @@ module.exports = {
 			});
 
 			return message.reply({
-				content: `Here are information about the dude who created me! 😎`,
+				content: i18n.__("modules.commands.cmds.help.sub_commands.about.message"),
 				embeds: [ aboutEmbed ],
 				components: [[ websiteButton, githubButton ]]
 			});

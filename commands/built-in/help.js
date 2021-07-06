@@ -3,6 +3,7 @@ const fs = require("fs");
 const config = require(`${projectPath}/config.json`);
 const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
+const { i18n } = require(`${projectPath}/main`);
 
 const subCommands = new Discord.Collection();
 const subCommandsFiles = fs.readdirSync(`${projectPath}/commands/built-in/help-commands`).filter(file => file.endsWith('.js'));
@@ -13,7 +14,7 @@ for (const file of subCommandsFiles) {
 
 module.exports = {
 	name: "help",
-	description: "Information about the bot commands",
+	description: i18n.__("modules.commands.cmds.help.command_desc"),
 	aliases: ["h", "how", "plz"],
 	cooldown: 5,
 	guildOnly: true,
@@ -26,15 +27,15 @@ module.exports = {
 				customFields.push({
 					name: command.title,
 					value: `
-						• \`${config.bot.prefix+ this.name} ${command.name}\` - ${command.description}.
+						• \`${config.bot.prefix + this.name} ${command.name}\` - ${command.description}.
 					`
 				});
 			});
 
 			const helpPanel = new Discord.MessageEmbed({
 				color: config.bot.color,
-				title: "Help",
-				description: "Here is the list of the bot useful commands:",
+				title: i18n.__("modules.commands.cmds.help.title"),
+				description: i18n.__("modules.commands.cmds.help.description"),
 				thumbnail: {
 					url: client.user.avatarURL()
 				},
@@ -42,7 +43,7 @@ module.exports = {
 			});
 
 			message.reply({
-				content: `Need some help <@${message.author.id}>? Here is everything you should know:`,
+				content: i18n.__mf("modules.commands.cmds.help.embed_title", { author_id: message.author.id }),
 				embeds: [ helpPanel ]
 			});
 		}

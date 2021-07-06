@@ -2,11 +2,12 @@ const projectPath = process.cwd();
 const config = require(`${projectPath}/config.json`);
 const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
+const { i18n } = require(`${projectPath}/main`);
 
 module.exports = {
 	name: "commands",
-	title: "Commands",
-	description: "List of all bot commands",
+	title: i18n.__("modules.commands.cmds.help.sub_commands.commands.command_title"),
+	description: i18n.__("modules.commands.cmds.help.sub_commands.commands.command_desc"),
 	callback(message) {
 		let commandLine = "";
 		const allCommands = client.commands.filter(command => !command.moderation);
@@ -18,10 +19,10 @@ module.exports = {
 
 		const commandsEmbed = {
 			color: config.bot.color,
-			title: "Commands list",
+			title: this.title,
 			description: this.description,
 			fields: [
-				{ name: this.title, value: commandLine }
+				{ name: i18n.__("modules.commands.cmds.help.sub_commands.commands.embed_field_cmds_name"), value: commandLine }
 			]
 		};
 

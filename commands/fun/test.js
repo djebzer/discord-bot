@@ -2,8 +2,10 @@ const projectPath = process.cwd();
 const config = require(`${projectPath}/config.json`);
 const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
+const { i18n } = require(`${projectPath}/main`);
 
 module.exports = {
+	disabled: true,
 	name: 'test',
 	description: 'Testing command',
 	execute(message, args) {
@@ -34,7 +36,7 @@ module.exports = {
 };
 
 // interactions
-client.on("interactionCreate", (interaction) => {
+/*client.on("interactionCreate", (interaction) => {
 	// >help commands
 	if (interaction.customID == "commands_helpCommands") {
 		interaction.reply({
@@ -52,3 +54,13 @@ client.on("interactionCreate", (interaction) => {
 		})
 	}
 });
+
+// interactions
+client.on("interactionCreate", (interaction) => {
+	if (interaction.customID == "randomDrink") {
+		let drink = drinksList[Math.floor(Math.random() * drinksList.length)]
+		interaction.reply({ content: `You received a **${drink.name} ${drink.emoji}**!`, ephemeral: true })
+			.catch(console.error)
+		;
+	}
+});*/

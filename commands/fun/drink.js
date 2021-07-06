@@ -1,5 +1,6 @@
 const projectPath = process.cwd();
 const client = require(`${projectPath}/main`);
+const { i18n } = require(`${projectPath}/main`);
 
 let drinksList = [
 	{ name: "Champagne", emoji: "🥂" },
@@ -10,21 +11,11 @@ let drinksList = [
 
 module.exports = {
 	name: "drink",
-	description: "Ask for a random drink",
+	description: i18n.__("modules.commands.cmds.drink.command_desc"),
 	cooldown: 10,
 	guildOnly: true,
 	execute(message) {
 		let randomDrink = drinksList[Math.floor(Math.random() * drinksList.length)];
-		message.reply(`Here is a **${randomDrink.name} ${randomDrink.emoji}** for you!`);
+		message.reply(i18n.__mf("modules.commands.cmds.drink.answer", { drink: `${randomDrink.name} ${randomDrink.emoji}` }));
 	},
 };
-
-// interactions
-client.on("interactionCreate", (interaction) => {
-	if (interaction.customID == "randomDrink") {
-		let drink = drinksList[Math.floor(Math.random() * drinksList.length)]
-		interaction.reply({ content: `You received a **${drink.name} ${drink.emoji}**!`, ephemeral: true })
-			.catch(console.error)
-		;
-	}
-});

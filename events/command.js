@@ -22,22 +22,25 @@ module.exports = {
 
 		// check if the command is only for guilds
 		if (command.guildOnly && message.channel.type === "dm") {
-			return message.reply("I can't execute that command inside DMs!");
+			return message.reply(i18n.__("modules.commands.global.no_dm"));
 		}
 
 		// check if the command needs specific permissions
 		if (command.permissions) {
 			const authorPerms = message.channel.permissionsFor(message.author);
 			if (!authorPerms || !authorPerms.has(command.permissions)) {
-				return message.reply(`You don't have enough permissions to perform this command!`);
+				return message.reply(i18n.__("modules.commands.global.no_permissions"));
 			}
 		}
 
 		// if arguments are required, then check for it
 		if (command.args && !args.length) {
-			let reply = `You didn't provide any argument for this command!`;
+			let reply = i18n.__("modules.commands.global.no_args");
 			if (command.usage) {
-				reply += `\nThe proper usage for this command would be: \`${config.bot.prefix + command.name} ${command.usage}\``;
+				reply += `\n${i18n.__mf("modules.commands.global.usage", {
+					command_name: config.bot.prefix + command.name,
+					command_usage: command.usage
+				})}`;
 			}
 			return message.reply(reply);
 		}
@@ -53,7 +56,10 @@ module.exports = {
 			const expiration = timestamps.get(message.author.id) + cooldown;
 			if (now < expiration) {
 				const timeLeft = (expiration - now);
-				return message.reply(`You need to wait **${prettyMS(timeLeft)}** before using the \`${config.bot.prefix + command.name}\` command again!`);
+				return message.reply(i18n.__mf("modules.commands.global.time_left", {
+					time_left: prettyMS(timeLeft),
+					command_name: config.bot.prefix + command.name
+				}));
 			}
 		}
 		timestamps.set(message.author.id, now);
@@ -63,7 +69,7 @@ module.exports = {
 			command.execute(message, args);
 		} catch (error) {
 			console.error(error);
-			message.reply('Something went wrong while trying to execute that command.. 😥\nPlease try again later.');
+			message.reply(i18n.__("modules.commands.global.error"));
 		}
 
 		if (!config.logs.disable_all && config.logs.command_used) {
@@ -71,8 +77,7 @@ module.exports = {
 				title: i18n.__("logs.command_used.title"),
 				description: i18n.__mf("logs.command_used.description", {
 					author_id: message.author.id,
-					prefix: config.bot.prefix,
-					command_name: command.name
+					command_name: config.bot.prefix + command.name
 				}),
 				footer: `UserID: ${message.author.id}`,
 				timestamp: new Date()

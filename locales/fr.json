@@ -1,26 +1,108 @@
 {
-	"global": {
-		"hello": "Salut tout le monde!",
-		"hello_formated": "Salut tout le **{test}** monde!"
-	},
-	"logs": {
-		"message_sent": {
-			"title": "logs.message_sent.title",
-			"description": "logs.message_sent.description"
-		},
-		"message_edited": {
-			"title": "Message edited",
-			"description": "<@{editor_id}> edited a message in <#{channel_id}>.",
-			"before": "logs.message_edited.before",
-			"after": "logs.message_edited.after"
+	"modules": {
+		"commands": {
+			"global": {
+				"no_dm": "Je ne peux pas executer cette commande en MPs !",
+				"no_permissions": "Tu n'as pas les permissions nécessaires pour effectuer cette commande !",
+				"no_args": "Tu n'as fourni aucun argument pour cette commande !",
+				"usage": "L'utilisation correcte de cette commande serait: `{command_name} {command_usage}`",
+				"time_left": "Tu dois attendre **{time_left}** avant d'utiliser la commande `{command_name}` à nouveau.",
+				"error": "Une erreur s'est produite en essayant d'exécuter la commande.. 😥\nRéessaie plus tard."
+			},
+			"cmds": {
+				"help": {
+					"command_desc": "Informations à propos des commandes du bot",
+					"title": "Aide",
+					"description": "Voici la liste des commandes utiles du bot:",
+					"embed_title": "Besoin d'aide <@{author_id}> ? Voici tout ce que tu dois savoir:",
+					"sub_commands": {
+						"about": {
+							"command_title": "À propos",
+							"command_desc": "Informations à propos du créateur du bot.",
+							"message": "Voici les informations sur la personne qui m'a crée ! 😎",
+							"embed_title": "Infos sur le créateur",
+							"embed_field_author_name": "Créateur",
+							"embed_field_info_name": "Informations",
+							"embed_field_info_value": "Cliquez sur les boutons ci-dessous pour des liens utiles.",
+							"link_website": "Site web"
+						},
+						"commands": {
+							"command_title": "Commandes",
+							"command_desc": "Liste de toutes les commandes du bot",
+							"embed_field_cmds_name": "Commandes disponibles"
+						},
+						"moderation": {
+							"command_title": "Commandes de modération",
+							"command_desc": "Liste des commandes de modération",
+							"embed_field_cmds_name": "Commandes disponibles"
+						}
+					}
+				},
+				"drink": {
+					"command_desc": "Donne une boisson aléatoire",
+					"answer": "Voici du **{drink}** pour toi !"
+				},
+				"number": {
+					"command_desc": "Génère un nombre aléatoire entre 2 nombres spécifiés",
+					"error": "Vous devez choisir un deuxième nombre !",
+					"answer": "Nombre aléatoire: **{number}**"
+				},
+				"clearchat": {
+					"command_desc": "Supprime 100 messages du channel spécifié ou le channel actuel",
+					"answer": "Le chat a été vidé par <@{author_id}>."
+				},
+				"ping": {
+					"command_desc": "Renvoie la latence du bot en milisecondes",
+					"answer": "Mon temps de réponse est de **{latency}ms**."
+				},
+				"uptime": {
+					"command_desc": "Renvoi la durée depuis laquelle le bot est en ligne",
+					"answer": "Je suis en ligne depuis **{uptime}**."
+				},
+				"avatar": {
+					"command_desc": "Renvoie l'avatar de l'utilisateur spécifié",
+					"error": "L'utilisateur spécifié est introuvable ! (Example: {command_name} <@{target_id}>)",
+					"answer_self": "Voici votre avatar:",
+					"answer_target": "Voici l'avatar de **{target_tag}**:",
+					"requested_by": "Demandé par {author_id}"
+				}
+			}
 		},
 		"user_joined": {
-			"title": "User joined",
-			"description": "<@{user_id}> joined the server."
+			"title": "Arrivée d'un utilisateur",
+			"description": "Bienvenue à <@{target_id}>, qui vient juste d'arriver.\nContent de te voir !"
 		},
 		"user_left": {
-			"title": "User left",
-			"description": "<@{user_id}> left the server."
+			"title": "Départ d'un utilisateur",
+			"description": "Au revoir à <@{target_id}>, qui vient de quitter le serveur..\nEn espérant te revoir bientôt !"
+		}
+	},
+	"logs": {
+		"command_used": {
+			"title": "Commande utilisée",
+			"description": "<@{author_id}> a utilisé la commande `{command_name}`."
+		},
+		"message_sent": {
+			"title": "Message envoyé",
+			"description": "<@{author_id}> dit {message_content}."
+		},
+		"message_edited": {
+			"title": "Message modifié",
+			"description": "<@{editor_id}> a modifié un message dans <#{channel_id}>.",
+			"before": "Avant",
+			"after": "Après"
+		},
+		"user_joined": {
+			"title": "Arrivée d'un utilisateur",
+			"description": "<@{user_id}> a rejoint le serveur."
+		},
+		"user_left": {
+			"title": "Départ d'un utilisateur",
+			"description": "<@{user_id}> a quitté le serveur."
+		},
+		"chat_cleared": {
+			"title": "Chat vidé",
+			"description": "<#{channel_id}> a été vidé part <@{author_id}>."
 		}
 	}
 }

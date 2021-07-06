@@ -1,13 +1,13 @@
+const projectPath = process.cwd();
+const { i18n } = require(`${projectPath}/main`);
+
 module.exports = class UserJoinGuildEmbed {
 	constructor(target) {
 		if (!target) return;
 		return {
 			color: "#30D158",
-			title: "Member joined",
-			description: `
-				Welcome to <@${target.id}>, who just joined the server!
-				Enjoy your stay there!
-			`,
+			title: i18n.__("modules.user_joined.title"),
+			description: i18n.__mf("modules.user_joined.description", { target_id: target.id }),
 			thumbnail: {
 				url: target.avatarURL()
 			},
