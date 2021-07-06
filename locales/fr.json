@@ -1,0 +1,26 @@
+{
+	"global": {
+		"hello": "Salut tout le monde!",
+		"hello_formated": "Salut tout le **{test}** monde!"
+	},
+	"logs": {
+		"message_sent": {
+			"title": "logs.message_sent.title",
+			"description": "logs.message_sent.description"
+		},
+		"message_edited": {
+			"title": "Message edited",
+			"description": "<@{editor_id}> edited a message in <#{channel_id}>.",
+			"before": "logs.message_edited.before",
+			"after": "logs.message_edited.after"
+		},
+		"user_joined": {
+			"title": "User joined",
+			"description": "<@{user_id}> joined the server."
+		},
+		"user_left": {
+			"title": "User left",
+			"description": "<@{user_id}> left the server."
+		}
+	}
+}

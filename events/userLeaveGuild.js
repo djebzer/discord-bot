@@ -3,6 +3,7 @@ const client = require(`${projectPath}/main`);
 const config = require(`${projectPath}/config.json`);
 const UserLeaveGuildEmbed = require(`${projectPath}/embeds/UserLeaveGuildEmbed`);
 const { addLog } = require(`${projectPath}/functions/logging`);
+const { i18n } = require(`${projectPath}/main`);
 
 module.exports = {
 	name: "guildMemberRemove",
@@ -19,8 +20,8 @@ module.exports = {
 		// log
 		if (!config.logs.disable_all && config.logs.user_joined) {
 			addLog(user, {
-				title: "User left",
-				description: `<@${user.id}> left the server.`,
+				title: i18n.__("logs.user_left.title"),
+				description: i18n.__mf("logs.user_left.description", { user_id: user.id }),
 				footer: `UserID: ${user.id}`,
 				timestamp: new Date()
 			});

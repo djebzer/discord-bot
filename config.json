@@ -1,4 +1,5 @@
 {
+	"language": "fr",
 	"dev_mode": false,
 	"bot": {
 		"prefix": ">",
@@ -17,7 +18,7 @@
 	"logs": {
 		"disable_all": false,
 		"command_used": true,
-		"message_sent": false,
+		"message_sent": true,
 		"message_edited": true,
 		"user_joined": true,
 		"user_left": true,

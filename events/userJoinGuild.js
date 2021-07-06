@@ -3,6 +3,7 @@ const client = require(`${projectPath}/main`);
 const config = require(`${projectPath}/config.json`);
 const UserJoinGuildEmbed = require(`${projectPath}/embeds/UserJoinGuildEmbed`);
 const { addLog } = require(`${projectPath}/functions/logging`);
+const { i18n } = require(`${projectPath}/main`);
 
 module.exports = {
 	name: "guildMemberAdd",
@@ -19,8 +20,8 @@ module.exports = {
 		// log
 		if (!config.logs.disable_all && config.logs.user_joined) {
 			addLog(user, {
-				title: "User joined",
-				description: `<@${user.id}> joined the server.`,
+				title: i18n.__("logs.user_joined.title"),
+				description: i18n.__mf("logs.user_joined.description", { user_id: user.id }),
 				footer: `UserID: ${user.id}`,
 				timestamp: new Date()
 			});

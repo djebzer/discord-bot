@@ -1,0 +1,32 @@
+{
+	"global": {
+		"hello": "Hey everyone!",
+		"hello_formated": "Hey **{test}** everyone!"
+	},
+	"logs": {
+		"command_used": {
+			"title": "Command used",
+			"description": "<@{author_id}> used the command: `{prefix}{command_name}`."
+		},
+		"message_sent": {
+			"title": "Message sent",
+			"description": "<@{author_id}> says: {message_content}.",
+			"before": "Before",
+			"after": "After"
+		},
+		"message_edited": {
+			"title": "Message edited",
+			"description": "<@{editor_id}> edited a message in <#{channel_id}>.",
+			"before": "Before",
+			"after": "After"
+		},
+		"user_joined": {
+			"title": "User joined",
+			"description": "<@{user_id}> joined the server."
+		},
+		"user_left": {
+			"title": "User left",
+			"description": "<@{user_id}> left the server."
+		}
+	}
+}

@@ -5,6 +5,7 @@ const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
 const cooldowns = client.cooldowns;
 const { addLog } = require(`${projectPath}/functions/logging`);
+const { i18n } = require(`${projectPath}/main`);
 
 module.exports = {
 	name: "messageCreate",
@@ -67,8 +68,12 @@ module.exports = {
 
 		if (!config.logs.disable_all && config.logs.command_used) {
 			addLog(message.author, {
-				title: "Command used",
-				description: `<@${message.author.id}> used the command: \`${config.bot.prefix + command.name}\``,
+				title: i18n.__("logs.command_used.title"),
+				description: i18n.__mf("logs.command_used.description", {
+					author_id: message.author.id,
+					prefix: config.bot.prefix,
+					command_name: command.name
+				}),
 				footer: `UserID: ${message.author.id}`,
 				timestamp: new Date()
 			});

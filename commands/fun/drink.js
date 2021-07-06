@@ -27,4 +27,4 @@ client.on("interactionCreate", (interaction) => {
 			.catch(console.error)
 		;
 	}
-})
+});
