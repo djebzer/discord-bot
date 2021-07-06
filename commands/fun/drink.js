@@ -1,4 +1,5 @@
-const client = require("../../main");
+const projectPath = process.cwd();
+const client = require(`${projectPath}/main`);
 
 let drinksList = [
 	{ name: "Champagne", emoji: "🥂" },
@@ -9,12 +10,12 @@ let drinksList = [
 
 module.exports = {
 	name: "drink",
-	description: "Ask for a random drink!",
+	description: "Ask for a random drink",
+	cooldown: 10,
 	guildOnly: true,
-	
 	execute(message) {
 		let randomDrink = drinksList[Math.floor(Math.random() * drinksList.length)];
-		message.channel.send(`Here is a **${randomDrink.name} ${randomDrink.emoji}** for you!`);
+		message.reply(`Here is a **${randomDrink.name} ${randomDrink.emoji}** for you!`);
 	},
 };
 

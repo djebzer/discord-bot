@@ -2,24 +2,26 @@
 	"dev_mode": false,
 	"bot": {
 		"prefix": ">",
-		"activity": false,
+		"activity": true,
 		"color": "#4D8C57"
 	},
 	"channels": {
 		"logs": "861074747441545256",
-		"lobby": "860721236103397406",
-		"general": "860583124483702787"
+		"lobby": "860721236103397406"
 	},
 	"modules": {
 		"commands": true,
-		"user_joined": false,
-		"user_left": false
+		"user_joined": true,
+		"user_left": true
 	},
 	"logs": {
-		"all": false,
+		"disable_all": false,
+		"command_used": true,
 		"message_sent": false,
 		"message_edited": true,
 		"user_joined": true,
-		"user_left": false
+		"user_left": true,
+		"user_kicked": true,
+		"chat_cleared": true
 	}
 }

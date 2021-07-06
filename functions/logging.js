@@ -1,16 +1,19 @@
-const client = require("../main");
-const config = require("../config.json");
-const LogsEmbed = require("../embeds/LogsEmbed");
+const projectPath = process.cwd();
+const client = require(`${projectPath}/main`);
+const config = require(`${projectPath}/config.json`);
+const LogsEmbed = require(`${projectPath}/embeds/LogsEmbed`);
 
 let DEV_MODE = config.dev_mode;
 
-module.exports.addLog = function addLog(target, info){
+function addLog(target, info){
+	// create an embed box and send it
+	client.channels.fetch(config.channels.logs).then(channel => {
+		channel.send({ embeds: [ new LogsEmbed(target, info) ] });
+	});
+	
+	// log it in the console aswell if dev mode is enabled
 	if (DEV_MODE) {
 		console.log(`(Logs) ${info.title}: ${info.description}`);
 	}
-	
-	// create an embed box and send it
-	client.channels.fetch(config.channels.logs).then(channel => {
-		channel.send({ embed: new LogsEmbed(target, info) });
-	});
 }
+module.exports.addLog = addLog;

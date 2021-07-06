@@ -6,7 +6,7 @@ module.exports = class LogsEmbed {
 			title: info.title,
 			description: info.description,
 			author: {
-				name: target.username,
+				name: target.tag,
 				icon_url: target.avatarURL()
 			},
 			thumbnail: {

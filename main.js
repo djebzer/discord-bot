@@ -1,11 +1,9 @@
-// modules
 require("dotenv").config();
+const projectPath = process.cwd();
 const fs = require("fs");
-const path = require("path");
-const pkgJSON = require("./package.json");
 
 // initialize client
-const config = require("./config.json");
+const config = require(`${projectPath}/config.json`);
 const Discord = require("discord.js");
 const client = new Discord.Client({
 	intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_EMOJIS'],
@@ -15,14 +13,10 @@ client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 module.exports = client;
 
-/*client.users.fetch(pkgJSON.author_discord_id).then(user => {
-	console.log(`BOT MADE BY ${user.tag}`)
-});*/
-
 // initialize events
-const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
+const eventFiles = fs.readdirSync(`${projectPath}/events`).filter(file => file.endsWith(".js"));
 for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
+	const event = require(`${projectPath}/events/${file}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
 	} else {
@@ -31,11 +25,12 @@ for (const file of eventFiles) {
 }
 
 // initialize commands
-const commandFolders = fs.readdirSync('./commands');
+const commandFolders = fs.readdirSync(`${projectPath}/commands`);
 for (const folder of commandFolders) {
-	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`${projectPath}/commands/${folder}`).filter(file => file.endsWith(".js"));
 	for (const file of commandFiles) {
-		const command = require(`./commands/${folder}/${file}`);
+		const command = require(`${projectPath}/commands/${folder}/${file}`);
+		if (command.disabled) continue;
 		client.commands.set(command.name, command);
 	}
 }
@@ -43,7 +38,7 @@ for (const folder of commandFolders) {
 // debug handler
 client.on("error", console.error);
 client.on("warn", console.warn);
-client.on("debug", console.log);
+//client.on("debug", console.log);
 
 // bot login
 client.login(process.env.BOT_TOKEN);

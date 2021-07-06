@@ -1,18 +1,13 @@
 module.exports = class UserLeaveGuildEmbed {
 	constructor(target) {
 		if (!target) return;
-
-		let color = "#FF453A";
-		let title = "Member left";
-		let description = `
-			Good bye to <@${target.id}>, who just left the server..
-			We hope to see you coming back soon!
-		`;
-
 		return {
-			color: color,
-			title: title,
-			description: description,
+			color: "#FF453A",
+			title: "Member left",
+			description: `
+				Good bye to <@${target.id}>, who just left the server..
+				We hope to see you coming back soon!
+			`,
 			thumbnail: {
 				url: target.avatarURL()
 			},

@@ -1,10 +1,11 @@
-const config = require("../../config.json");
-const client = require("../../main");
+const projectPath = process.cwd();
+const config = require(`${projectPath}/config.json`);
+const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
 
 module.exports = {
 	name: 'test',
-	description: 'Information about the bot',
+	description: 'Testing command',
 	execute(message, args) {
 		if (!args[0]) {
 			const helpPanel = new Discord.MessageEmbed({
@@ -34,7 +35,6 @@ module.exports = {
 
 // interactions
 client.on("interactionCreate", (interaction) => {
-	console.log(interaction.embeds);
 	// >help commands
 	if (interaction.customID == "commands_helpCommands") {
 		interaction.reply({

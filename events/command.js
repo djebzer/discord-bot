@@ -1,8 +1,10 @@
-const config = require("../config.json");
+const projectPath = process.cwd();
+const prettyMS = require("pretty-ms");
+const config = require(`${projectPath}/config.json`);
+const client = require(`${projectPath}/main`);
 const Discord = require("discord.js");
-const client = require("../main");
 const cooldowns = client.cooldowns;
-const { addLog } = require("../functions/logging");
+const { addLog } = require(`${projectPath}/functions/logging`);
 
 module.exports = {
 	name: "messageCreate",
@@ -20,6 +22,14 @@ module.exports = {
 		// check if the command is only for guilds
 		if (command.guildOnly && message.channel.type === "dm") {
 			return message.reply("I can't execute that command inside DMs!");
+		}
+
+		// check if the command needs specific permissions
+		if (command.permissions) {
+			const authorPerms = message.channel.permissionsFor(message.author);
+			if (!authorPerms || !authorPerms.has(command.permissions)) {
+				return message.reply(`You don't have enough permissions to perform this command!`);
+			}
 		}
 
 		// if arguments are required, then check for it
@@ -41,8 +51,8 @@ module.exports = {
 		if (timestamps.has(message.author.id)) {
 			const expiration = timestamps.get(message.author.id) + cooldown;
 			if (now < expiration) {
-				const timeLeft = (expiration - now) / 1000;
-				return message.reply(`You need to wait **${timeLeft.toFixed(1)} second(s)** before using the \`${config.bot.prefix + command.name}\` command again!`);
+				const timeLeft = (expiration - now);
+				return message.reply(`You need to wait **${prettyMS(timeLeft)}** before using the \`${config.bot.prefix + command.name}\` command again!`);
 			}
 		}
 		timestamps.set(message.author.id, now);
@@ -52,16 +62,17 @@ module.exports = {
 			command.execute(message, args);
 		} catch (error) {
 			console.error(error);
-			message.reply('there was an error trying to execute that command!');
+			message.reply('Something went wrong while trying to execute that command.. 😥\nPlease try again later.');
 		}
 
-		if (!config.logs.all) return;
-		if (!config.logs.message_sent) return;
-		addLog(message.author, {
-			title: "Message sent",
-			description: `<@${message.author.id}> says: ${message.content}`,
-			footer: `AuthorID: ${message.author.id}, MessageID: ${message.id}`,
-			timestamp: new Date()
-		});
+		if (!config.logs.disable_all && config.logs.command_used) {
+			addLog(message.author, {
+				title: "Command used",
+				description: `<@${message.author.id}> used the command: \`${config.bot.prefix + command.name}\``,
+				footer: `UserID: ${message.author.id}`,
+				timestamp: new Date()
+			});
+		}
+		
 	}
 }
