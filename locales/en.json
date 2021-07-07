@@ -28,12 +28,12 @@
 						},
 						"commands": {
 							"command_title": "Commands",
-							"command_desc": "List of all bot commands",
+							"command_desc": "List of all bot commands.",
 							"embed_field_cmds_name": "Available commands"
 						},
 						"moderation": {
 							"command_title": "Moderation commands",
-							"command_desc": "List of moderation commands",
+							"command_desc": "List of moderation commands.",
 							"embed_field_cmds_name": "Available commands"
 						}
 					}

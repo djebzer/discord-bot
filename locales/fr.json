@@ -28,7 +28,7 @@
 						},
 						"commands": {
 							"command_title": "Commandes",
-							"command_desc": "Liste de toutes les commandes du bot",
+							"command_desc": "Liste de toutes les commandes du bot.",
 							"embed_field_cmds_name": "Commandes disponibles"
 						},
 						"moderation": {
