@@ -7,8 +7,8 @@
 		"color": "#4D8C57"
 	},
 	"channels": {
-		"logs": "861074747441545256",
-		"lobby": "860721236103397406"
+		"logs": "862672841857302539",
+		"lobby": "783113269014691870"
 	},
 	"modules": {
 		"commands": true,
@@ -17,12 +17,12 @@
 	},
 	"logs": {
 		"disable_all": false,
-		"command_used": true,
+		"command_used": false,
 		"message_sent": false,
 		"message_edited": true,
-		"user_joined": true,
+		"user_joined": false,
 		"user_left": true,
-		"user_kicked": true,
+		"user_kicked": false,
 		"chat_cleared": true
 	}
 }

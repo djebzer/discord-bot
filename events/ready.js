@@ -11,7 +11,9 @@ module.exports = {
 		console.log(`(Info) ${pkgJSON.name} is ready! (Author: ${pkgJSON.author}, Version: ${pkgJSON.version})`);
 
 		// set the bot activity
-		function updateGuildsCount(){
+		client.user.setActivity("in Grove Street");
+
+		/*function updateGuildsCount(){
 			let guildsCount = `${client.guilds.cache.size} server`;
 			guildsCount += (guildsCount > 1) ? "s" : "";
 			client.user.setActivity(`in ${guildsCount}. (${config.bot.prefix}help)`);
@@ -24,6 +26,6 @@ module.exports = {
 			setInterval(() => {
 				updateGuildsCount();
 			}, 600000);
-		}
+		}*/
 	}
 }
