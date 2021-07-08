@@ -20,16 +20,10 @@ module.exports = {
 		if (config.bot.activity) {
 			updateGuildsCount();
 
-			// update it every 2 minutes
+			// update it every 10 minutes
 			setInterval(() => {
 				updateGuildsCount();
-			}, 120000);
+			}, 600000);
 		}
-
-		// testing events
-		setTimeout(() => {
-			client.emit("guildMemberAdd", client.user);
-			client.emit("guildMemberRemove", client.user);
-		}, 1000);
 	}
 }
