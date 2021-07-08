@@ -1,6 +1,6 @@
 const projectPath = process.cwd();
-const client = require(`${projectPath}/main`);
 const pkgJSON = require(`${projectPath}/package.json`);
+const client = require(`${projectPath}/main`);
 const config = require(`${projectPath}/config.json`);
 const { i18n } = require(`${projectPath}/main`);
 
@@ -11,7 +11,7 @@ module.exports = {
 		console.log(`(Info) ${pkgJSON.name} is ready! (Author: ${pkgJSON.author}, Version: ${pkgJSON.version})`);
 
 		// set the bot activity
-		client.user.setActivity("in Grove Street");
+		client.user.setActivity(`in Grove Street. (${config.bot.prefix}help)`);
 
 		/*function updateGuildsCount(){
 			let guildsCount = `${client.guilds.cache.size} server`;
